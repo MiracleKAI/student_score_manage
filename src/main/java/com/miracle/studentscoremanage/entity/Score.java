@@ -17,8 +17,57 @@ public class Score {
 
     private Long courseId;
 
+    private String className;
+
     private String normalScore;
 
     private String finalScore;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
+    }
+
+    public Long getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        className = className;
+    }
+
+    public String getNormalScore() {
+        return normalScore;
+    }
+
+    public void setNormalScore(String normalScore) {
+        this.normalScore = normalScore;
+    }
+
+    public String getFinalScore() {
+        return finalScore;
+    }
+
+    public void setFinalScore(String finalScore) {
+        this.finalScore = finalScore;
+    }
 }
