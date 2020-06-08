@@ -6,19 +6,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Course {
+public class Class2Teacher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String courseId;
-
-    private String courseName;
-
     private Long teacherId;
 
-    private String description;
+    private Long classId;
 
     public Long getId() {
         return id;
@@ -26,22 +22,6 @@ public class Course {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
-    }
-
-    public String getCourseName() {
-        return courseName;
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
     }
 
     public Long getTeacherId() {
@@ -52,12 +32,11 @@ public class Course {
         this.teacherId = teacherId;
     }
 
-    public String getDescription() {
-        return description;
+    public Long getClassId() {
+        return classId;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setClassId(Long classId) {
+        this.classId = classId;
     }
-
 }

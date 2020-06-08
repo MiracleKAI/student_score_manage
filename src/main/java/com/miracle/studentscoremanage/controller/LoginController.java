@@ -45,7 +45,7 @@ public class LoginController {
             return UiReturn.notOk("用户名或密码为空", map);
         }
 
-        if (instance.getRole() == 0){
+        if (instance.getRole() == 1){
             Student student = studentService.getStudent(instance.getName());
             if (student == null){
                 return UiReturn.notOk("无此用户", map);

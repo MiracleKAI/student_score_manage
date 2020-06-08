@@ -23,7 +23,7 @@ public class TeacherService {
         return teacherRepository.findByName(name);
     }
 
-    public List<Score> getScoresByCourseId(String CourseId){
+    public List<Score> getScoresByCourseId(String courseId){
         return null;
     }
 }

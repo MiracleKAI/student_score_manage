@@ -20,6 +20,8 @@ public class StudentService {
         return studentRepository.findByName(name);
     }
 
-
+    public Student getInfo(Long id){
+        return studentRepository.getOne(id);
+    }
 
 }

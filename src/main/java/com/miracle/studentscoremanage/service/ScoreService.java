@@ -9,6 +9,9 @@ import com.miracle.studentscoremanage.entity.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -35,4 +38,14 @@ public class ScoreService {
         }
         return scores;
     }
+
+    public List<Score> getScoresStudent(Long studentId, String courseId, Integer start, Integer everyCount){
+        if("".equals(courseId)){
+            return scoreRepository.findAllByStudentId(studentId, start, everyCount);
+        }
+        Course course = courseRepository.findByCourseId(courseId);
+        return Collections.singletonList(scoreRepository.findByCourseIdAndStudentId(course.getId(), studentId));
+    }
+    
+
 }
