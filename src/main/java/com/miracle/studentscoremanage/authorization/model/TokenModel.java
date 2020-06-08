@@ -13,15 +13,12 @@ public class TokenModel {
         this.token = token;
     }
 
-
     public TokenModel() {
     }
-
 
     public Long getUserId() {
         return this.userId;
     }
-
 
     public void setUserId(Long userId) {
         this.userId = userId;
