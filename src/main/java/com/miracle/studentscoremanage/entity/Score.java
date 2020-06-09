@@ -23,6 +23,18 @@ public class Score {
 
     private String finalScore;
 
+    private String score;
+
+    private Integer flag;
+
+    public Integer getFlag() {
+        return flag;
+    }
+
+    public void setFlag(Integer flag) {
+        this.flag = flag;
+    }
+
     public Long getId() {
         return id;
     }
@@ -52,7 +64,7 @@ public class Score {
     }
 
     public void setClassName(String className) {
-        className = className;
+        this.className = className;
     }
 
     public String getNormalScore() {
@@ -70,4 +82,13 @@ public class Score {
     public void setFinalScore(String finalScore) {
         this.finalScore = finalScore;
     }
+
+    public String getScore() {
+        return score;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
+    }
+
 }

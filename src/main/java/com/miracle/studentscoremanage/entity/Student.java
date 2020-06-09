@@ -21,6 +21,10 @@ public class Student {
 
     private String className;
 
+    private String faculty;
+
+    private String gender;
+
     private String other;
 
 
@@ -30,6 +34,22 @@ public class Student {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getStudentId() {

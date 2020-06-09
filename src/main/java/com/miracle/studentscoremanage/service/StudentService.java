@@ -5,6 +5,8 @@ import com.miracle.studentscoremanage.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class StudentService {
 
@@ -17,11 +19,11 @@ public class StudentService {
 
     public Student getStudent(String name){
 
-        return studentRepository.findByName(name);
+        return studentRepository.findByStudentId(name);
     }
 
-    public Student getInfo(Long id){
-        return studentRepository.getOne(id);
+    public Optional<Student> getInfo(Long id){
+        return studentRepository.findById(id);
     }
 
 }

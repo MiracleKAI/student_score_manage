@@ -10,7 +10,6 @@ import java.util.List;
 @Repository
 public interface Class2TeacherRepository extends JpaRepository<Class2Teacher, Long> {
 
-
     List<Class2Teacher> findAllByTeacherId(Long teacherId);
 
 }

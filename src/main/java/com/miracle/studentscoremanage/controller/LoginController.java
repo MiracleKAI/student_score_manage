@@ -46,16 +46,6 @@ public class LoginController {
         }
 
         if (instance.getRole() == 1){
-            Student student = studentService.getStudent(instance.getName());
-            if (student == null){
-                return UiReturn.notOk("无此用户", map);
-            }
-            if (!student.getPassword().equals(instance.getPassword())) {
-                return UiReturn.notOk("密码错误", map);
-            }
-            id = student.getId();
-
-        }else {
             Teacher teacher = teacherService.getTeacher(instance.getName());
             if (teacher == null){
                 return UiReturn.notOk("无此用户", map);
@@ -64,6 +54,15 @@ public class LoginController {
                 return UiReturn.notOk("密码错误", map);
             }
             id = teacher.getId();
+        }else {
+            Student student = studentService.getStudent(instance.getName());
+            if (student == null){
+                return UiReturn.notOk("无此用户", map);
+            }
+            if (!student.getPassword().equals(instance.getPassword())) {
+                return UiReturn.notOk("密码错误", map);
+            }
+            id = student.getId();
         }
         TokenModel model = this.tokenManager.createToken(id);
         String token = model.getUserId() + "_" + model.getToken();
