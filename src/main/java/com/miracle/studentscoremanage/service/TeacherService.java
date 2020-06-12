@@ -36,11 +36,7 @@ public class TeacherService {
     }
 
     public Optional<Teacher> get(Long id){
-        Optional<Teacher> teacher = teacherRepository.findById(id);
-        return teacher;
-    }
-    public List<Score> getScoresByCourseId(String courseId){
-        return null;
+        return teacherRepository.findById(id);
     }
 
     public List<Classroom> getClasses(Long id){

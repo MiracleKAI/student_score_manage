@@ -69,7 +69,12 @@ public class StudentController {
             Course course1 = courseService.get(score.getCourseId());
             Optional<Teacher> teacher = teacherService.get(course1.getTeacherId());
             map1.put("course", course1);
-            map1.put("teacher", teacher.orElse(null));
+            Teacher teacher1 = null;
+            if (teacher.isPresent()){
+                teacher1 = teacher.get();
+                teacher1.setPassword("");
+            }
+            map1.put("teacher", teacher1);
             results.add(map1);
         }
         map.put("scores", results);

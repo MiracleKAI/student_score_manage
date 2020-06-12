@@ -1,0 +1,450 @@
+* {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+    position: relative;
+    transition: .3s;
+}
+
+a,
+li,
+ul {
+	text-decoration: none;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+/* login页面 */
+
+.login-main {
+    width: 100%;
+    height: 100%;
+    background: #f1f1f1;
+}
+
+.login-main .login {
+    width: 400px;
+    margin: 120px auto 0;
+    padding: 50px 50px 30px;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
+
+}
+
+.login-main .login .login-wrap .info {
+    font-size: 32px;
+    margin: 0 auto 50px;
+    padding: 12px;
+    font-weight: 700;
+    color: #ea6f5a;
+}
+
+.login-main .login .login-wrap .input-group {
+    margin: 23px 0;
+}
+
+.login-main .login .login-wrap .input-group input {
+    border: none;
+    width: 80%;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 6px;
+}
+
+.login-main .login .login-wrap .input-group input:hover {
+    
+    border-bottom: 1.5px solid #ea6f5a;
+}
+
+.login-main .login .login-wrap .input-group input:focus {
+    
+    border: 0;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+    outline: none;
+    border-bottom: 1.5px solid #ea6f5a;
+}
+
+.login-main .login .login-wrap  .error {
+    font-size: 12px;
+    color: red;
+}
+
+.login-main .login .login-wrap .identification {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.login-main .login .login-wrap .identification input {
+    margin-left: 20px;
+}
+
+.login-main .login .login-wrap .identification span {
+    color: #ea6f5a;
+}
+
+.login-main .login .login-wrap .btn {
+    width: 100%;
+    background: #3194d0;
+    margin: 20px auto;
+    margin-top: 36px;
+    padding: 9px 16px;
+    font-size: 18px;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    cursor: pointer;
+    outline:none;
+}
+.scores .btn:hover,
+.login-main .login .login-wrap .btn:hover{
+    background: #187cb7!important;
+    cursor: pointer;
+}
+
+.login-main .login .login-wrap {
+    width: 100%;
+    height: 100%;
+}
+
+.login-main .login .tip {
+    color: #999;
+    position: absolute;
+    width: 100px;
+    font-size: 14px;
+    right: 20px;
+}
+
+.login-main .login .tip:hover {
+    color: black;
+    cursor: pointer;
+}
+
+/* #login-loading {
+    margin: 0 0 2em;
+  height: 100px;
+  width: 20%;
+  text-align: center;
+  padding: 1em;
+  margin: 0 auto 1em;
+  display: inline-block;
+  vertical-align: top;
+} */
+
+/* #login-loading::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border-radius: 10px;
+    border: 2px solid #fff;
+    border-bottom-color: transparent;
+    vertical-align: middle;
+    -webkit-animation: rolling .8s infinite linear;
+    animation: rolling .8s infinite linear;
+    z-index: 1;
+
+}
+
+
+#login-loading::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+} */
+
+/* 页脚 */
+
+.foot {
+    width: 600px;
+    margin: 40px auto 0;
+    color: #999;
+    letter-spacing: .2em;
+    font-family: myfont;
+}
+
+.foot .foot-right a {
+    color: #999999;
+}
+
+.foot .foot-left {
+    display: inline-block;
+    font-weight: 500;
+}
+
+.foot .foot-right {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+}
+
+.foot .foot-right a:hover {
+    border-bottom: .6px solid #333;
+    color: #333;
+}
+
+/* nav栏 */
+
+.nav {
+    background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);;
+    height: 60px;
+}
+
+.nav .nav-wrap {
+    width: 960px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.nav .nav-wrap .nav-right,
+.nav .nav-wrap .nav-left ,
+.nav .nav-wrap .nav-right li{
+    display: inline-block;
+}
+
+.nav .nav-wrap .nav-right,
+.nav .nav-wrap .nav-left ,
+.nav  .github {
+    position: absolute;
+}
+
+.nav  .github {
+    right: 0;
+}
+
+.nav .nav-wrap .nav-left {
+    font-family: myfont;
+    bottom: 2px;
+    color: white;
+    font-weight: 700;
+    font-size: 32px;
+}
+
+.nav .nav-wrap .nav-right {
+    right: 0;
+    top: 36px;
+    color: #e4e4e4;
+
+}
+
+.nav .nav-wrap .nav-right li {
+    margin-right: 12px;
+}
+
+.nav  .github {
+    bottom: -2px;
+    right: 20px;
+}
+
+/* student和teacher的主要框架 */
+.main {
+    width: 960px;
+    margin: 0 auto;
+
+}
+
+.main .wrap-left,
+.main .wrap-right {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.main .wrap-left {
+    width: 26%;
+    margin: 40px 12px 0;
+    background-color: #CDDCDC; background-image: radial-gradient(at 50% 100%, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%), linear-gradient(to bottom, rgba(255,255,255,0.25) 0%, rgba(0,0,0,0.25) 100%); background-blend-mode: screen, overlay;
+    border-radius: 30px;
+    box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
+}
+
+.main .wrap-left h2,
+.main .wrap-left .intro {
+    padding: 40px 30px 16px;
+}
+
+.main .wrap-left h2 {
+    margin-bottom:  30px;
+    padding: 40px 30px 16px;
+    border-bottom: 1px dotted rgb(201, 202, 204);
+    background: #ea6f5a;
+    font-size: 40px;
+    font-family: myfont;
+    letter-spacing: .1em;
+    color: white;
+    border-radius: 30px 30px 0 0;
+}
+
+.main .wrap-left .intro {
+    padding-top: 0px;
+    margin-bottom: 30px;
+    color: #555; 
+}
+
+.main .wrap-left .intro li {
+    margin: 12px 0;
+}
+
+.main .wrap-right {
+    width: 69%;
+    background: white;
+    margin-top: 40px;
+    padding: 20px 30px 40px;
+    min-height: 450px;
+}
+
+.main .wrap-right .title,
+.main .wrap-right .search {
+    display: inline-block;
+}
+
+.main .wrap-right .top {
+    border-bottom: 1.1px solid #999;
+    padding-bottom: 8px;
+}
+
+.main .wrap-right .title {
+    font-size: 32px;
+    /* font-family: myfont; */
+    font-weight: 600;
+    letter-spacing: .1em;
+    color: #ea6f5a;
+}
+.scores .proportion input,
+.main .wrap-right .search input {
+    border: none;
+    width: 180px;
+    border-bottom: 1px solid #ddd;
+    color: #777;
+}
+.scores .proportion input:focus,
+.main .wrap-right .search input:focus {
+    outline: none;
+}
+.scores .proportion input:focus,
+.scores .proportion input:hover,
+.main .wrap-right .search input:focus,
+.main .wrap-right .search input:hover {
+    border-bottom: 1.5px solid #ea6f5a;
+}
+.dropdown,
+.main .wrap-right .search .btn {
+    margin: 0 24px;
+    font-size: 12px;
+    height: 20px;
+
+    background: #3194d0;
+    padding: 0px 12px ;
+    /* font-size: 18px; */
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    outline:none;
+}
+
+.main .wrap-right .search .btn:hover,
+.main .wrap-right .search .btn:focus{
+    background: #187cb7;
+}
+
+.scores,
+.scores .scores-table {
+    width: 100%;
+    max-width: 100%;
+}
+
+.scores .scores-table caption {
+    text-align: left;
+    padding: 8px 0;
+    color: #777;
+}
+
+.scores .scores-table {
+    border-spacing: 0;
+    border-collapse: collapse
+}
+
+.scores .scores-table thead th {
+    border-bottom: 2px solid #ddd;
+}
+
+.scores .scores-table th,
+.scores .scores-table td{
+    padding: 8px;
+    line-height: 1.4;
+    text-align: left;
+    vertical-align: bottom;
+    border-bottom: 1px solid #ddd;
+}
+
+.scores .scores-table td input {
+    width: 60px;
+    border: none;
+    outline: none;
+    padding: 0 3px;
+    text-align: center;
+}
+.scores .scores-table td input:hover,
+.scores .scores-table td input:focus {
+    border-bottom: 1px solid #ea6f5a; 
+    transition: none;
+}
+
+.scores .flag,
+ .scores .proportion{
+    margin: 20px 0;
+    padding: 0 10px;
+}
+
+.scores .proportion input {
+    width: 60px;
+    padding: 0 3px;
+    text-align: center;
+}
+
+/* 下拉选项框 */
+.dropdown {
+    background: white;
+    border: 1px solid black;
+    color: black;
+}
+
+.dropdown .dropdown-btn{
+    border: none !important;
+    color: black !important;
+    width: 60px !important;
+    min-width: 40px !important;
+}
+
+.drop-content {
+    min-width: 70px;
+    position: absolute;
+    margin: 0 24px;
+    font-size: 12px;
+    padding: 8px 0;
+    background: white;
+    border: 1px solid black;
+    overflow: hidden;
+    z-index: 100;
+}
+
+.drop-content li {
+    padding: 3px 12px;
+    cursor: pointer;
+}
+
+.drop-content li:hover {
+    background: #3194d0;
+    color: white;
+}

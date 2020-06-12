@@ -9,11 +9,11 @@ import com.miracle.studentscoremanage.service.TeacherService;
 import com.miracle.studentscoremanage.util.Code;
 import com.miracle.studentscoremanage.util.UiReturn;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @RestController
@@ -36,6 +36,7 @@ public class TeacherController {
 
     @GetMapping
     public UiReturn getOneself(HttpServletRequest request, HttpServletResponse response){
+
         String authentication = request.getHeader("authentication");
         TokenModel model = tokenManager.getToken(authentication);
         response.setStatus(Code.HTTP_BAD_REQUEST);
@@ -77,7 +78,12 @@ public class TeacherController {
             Optional<Student> student = studentService.getInfo(score.getStudentId());
             Map<String, Object> map1  = new HashMap<>();
             map1.put("score", score);
-            map1.put("student", student);
+            Student student1 = null;
+            if (student.isPresent()){
+                student1 = student.get();
+                student1.setPassword("");
+            }
+            map1.put("student", student1);
             list.add(map1);
         }
         response.setStatus(Code.HTTP_OK);
@@ -125,7 +131,7 @@ public class TeacherController {
         if (!tokenManager.checkToken(model)) {
             return UiReturn.notOk("用户已注销");
         }
-        
+
         teacherService.delete(id);
         response.setStatus(Code.HTTP_OK);
         return UiReturn.ok(null);

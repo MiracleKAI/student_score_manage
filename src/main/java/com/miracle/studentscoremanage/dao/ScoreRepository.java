@@ -22,5 +22,5 @@ public interface ScoreRepository extends JpaRepository<Score, Long> {
     List<Score> findAllByClassNameAndCourseId(@Param("class_name") String className, @Param("course_id") Long courseId, @Param("start") Integer start, @Param("everyCount") Integer evertCount);
 
     Score findByCourseIdAndStudentId(Long courseId, Long studentId);
-
+     
 }

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <META HTTP-EQUIV="expires" CONTENT="0">
+    <title>Document</title>
+    <link rel="stylesheet" href="font/font.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+
+</head>
+
+<body style="height: 100%;background: #f1f1f1;">
+
+    <div class="login-main" id="login">
+        <div class="login">
+            <div class="login-wrap">
+                <div class="info">登录
+                    <span style="color: #969696; font-size: 12px; position: absolute; right: 0;bottom: 0;">
+                        学生成绩录入/查询系统</span>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="userId" placeholder="请输入学号/工号" v-model="userId">
+                    <div class="error" v-if="uIdisEmpty">用户名不能为空！</div>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="pwd" placeholder="请输入密码" v-model="pwd">
+                    <div class="error" v-if="pwdisEmpty">密码不能为空！</div>
+                </div>
+                <div class="identification"><span>作为</span>
+                    <input type="radio" name="role" value="0" v-model="role"> 学生
+                    <input type="radio" name="role" value="1" v-model="role"> 老师
+                    <span style="margin-left: 20px;">登录</span>
+                </div>
+                <div class="tip">登录遇到问题？</div>
+                <div class="error" id="loginError" v-if="error" style="width: 120px; margin: 0 60px;">登录错误，请重试！</div>
+                <button class="btn" @click="login">
+                    <span id="login-loading" v-if="isLoading">
+                        
+                    </span> 登录</button>
+            </div>
+        </div>
+    </div>
+    <div class="foot">
+        <div class="foot-left">@木月 2020.6.8 <br> # 一次作业</div>
+        <div class="foot-right"><a href="https://github.com/MiracleKAI/student_score_manage">github</a></div>
+    </div>
+
+    <script src="lib/axios.js"></script>
+    <script src="lib/vue.js"></script>
+    <script src="js/main.js?v=2"></script>
+</body>
+
+</html>

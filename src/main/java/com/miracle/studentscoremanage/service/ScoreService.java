@@ -2,7 +2,6 @@ package com.miracle.studentscoremanage.service;
 
 import com.miracle.studentscoremanage.dao.CourseRepository;
 import com.miracle.studentscoremanage.dao.ScoreRepository;
-import com.miracle.studentscoremanage.dao.TeacherRepository;
 import com.miracle.studentscoremanage.entity.Course;
 import com.miracle.studentscoremanage.entity.Score;
 import org.springframework.beans.factory.annotation.Autowired;

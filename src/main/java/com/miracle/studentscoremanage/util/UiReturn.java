@@ -20,7 +20,6 @@ public class UiReturn {
     public UiReturn() {
     }
 
-
     public static UiReturn ok(Object data) {
         return new UiReturn("成功", data);
     }

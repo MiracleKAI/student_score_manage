@@ -41,7 +41,7 @@ public class LoginController {
         map.put("authentication", null);
         response.setStatus(Code.HTTP_BAD_REQUEST);
         long id = -1;
-        if (instance.getName() == null || instance.getPassword() == null) {
+        if ("".equals(instance.getName()) || "".equals(instance.getPassword())) {
             return UiReturn.notOk("用户名或密码为空", map);
         }
 

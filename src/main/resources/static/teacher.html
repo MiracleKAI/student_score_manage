@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="font/font.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css?1">
+
+</head>
+
+<body style="height: 100%;background: #f1f1f1;">
+    <div id="teacher">
+        <div class="nav">
+            <div class="nav-wrap">
+                <div class="nav-left">学生成绩录入/查询系统</div>
+                <div class="nav-right">
+                    <li>姓名：{{teacher.name}}</li>
+                    <li>工号：{{teacher.teacherId}}</li>
+
+                </div>
+
+            </div>
+            <a href="https://github.com/MiracleKAI/student_score_manage" class="github"><img src="img/icon-github.png"
+                    alt="github" class="github-img"></a>
+        </div>
+        <div class="main">
+            <div class="wrap-left">
+                <!-- 用户介绍 -->
+                <h2>welcome</h2>
+                <div class="intro">
+                    <li>姓名：{{teacher.name}}</li>
+                    <li>工号：{{teacher.teacherId}}</li>
+                    <li>学院：{{teacher.faculty}}</li>
+                    <li>性别：{{teacher.gender}}</li>
+                </div>
+            </div>
+            <div class="wrap-right">
+                <!-- 分数录入 -->
+                <div class="top">
+                    <div class="title">录入/</div>
+                    <div class="search" id="search">
+                        <button class="dropdown" @click="toggle2">
+                            <input v-model="course" disabled class="dropdown-btn"><span>▼</span></input>
+                        </button>
+                        <div class="drop-content" v-if="isShown2">
+                            <li v-for="item in courseList" @click="setCourse(item.courseName, item.courseId)">
+                                {{item.courseName}}</li>
+                        </div>
+                        <button class="dropdown" @click="toggle1">
+                            <input v-model="className" disabled class="dropdown-btn"><span>▼</span></input>
+                        </button>
+                        <div class="drop-content" style="left: 160px;" v-if="isShown1">
+                            <li @click="setAllClass">全部班级</li>
+                            <li v-for="item in classList" @click="setClass(item.className)">{{item.className}}</li>
+                        </div>
+
+                        <button class="btn" @click="getInfo()">获取</button>
+
+                    </div>
+
+                </div>
+                <div class="scores">
+                    <div class="flag">
+                        <span>选择最终成绩分制：</span>
+                        <input type="radio" name="flag" value="0" checked v-model="flag"
+                            @change="changeFlag"><span>百分制</span>
+                        <input type="radio" name="flag" value="1"  v-model="flag" @change="changeFlag"><span>五分制</span>
+                    </div>
+                    <div class="proportion">
+                        <span>平时和期末成绩比例：</span>
+                        平时：<input type="number" v-model="npro" @change="compute1"
+                            oninput="if(value>100)value=100;if(value<0)value=0">% <span style="margin: 12px;"></span>
+                        期末：<input type="number" v-model="fpro" @change="compute2"
+                            oninput="if(value>100)value=100;if(value<0)value=0">%
+                    </div>
+                    <table class="scores-table">
+                        <thead>
+                            <tr>
+                                <th>学号</th>
+                                <th>姓名</th>
+                                <th>课程</th>
+                                <th>平时成绩</th>
+                                <th>期末成绩</th>
+                                <th>最终成绩</th>
+                            </tr>
+                        </thead>
+                        <tbody v-if="isFound">
+                            <tr v-for="(item, index) in scores">
+                                <th>{{item.student.studentId}}</th>
+                                <td>{{item.student.name}}</td>
+                                <td >{{courseName}}</td>
+                                <td><input type="number" v-model="item.score.normalScore"
+                                        oninput="if(value>100)value=100;if(value<0)value=0" @input="setScore(index)">
+                                </td>
+                                <td><input type="number" v-model="item.score.finalScore"
+                                        oninput="if(value>100)value=100;if(value<0)value=0" @input="setScore(index)">
+                                </td>
+                                <td><input type="text" disabled v-model="item.score.score"></td>
+                                <td style="cursor: pointer;color: red;" @click="deleteById(index)">×</td>
+                            </tr>
+
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <div v-if="isFound" style="margin: 0 auto;width: 121px;"><button @click="setScores" class="btn"
+                            style="padding: 5px 16px;background: #3194d0; color: white;border: none;outline: none;border-radius: 6px;margin: 20px auto;width: 120px;">提
+                            交</button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="foot" style="margin-bottom: 50px;">
+            <div class="foot-left">@木月 2020.6.9</div>
+            <div class="foot-right"></div>
+        </div>
+    </div>
+    <script src="lib/qs.js"></script>
+    <script src="lib/axios.js"></script>
+    <script src="lib/vue.js"></script>
+    <script src="js/teacher.js?4daaddda1sads2dsddddasasadfdd1"></script>
+</body>
+
+</html>

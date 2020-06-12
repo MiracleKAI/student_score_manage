@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="font/font.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+
+</head>
+
+<body style="height: 100%;background: #f1f1f1;">
+    <div id="student">
+
+
+        <div class="nav">
+            <div class="nav-wrap">
+                <div class="nav-left">学生成绩录入/查询系统</div>
+                <div class="nav-right">
+                    <li>姓名：{{student.name}}</li>
+                    <li>学号：{{student.studentId}}</li>
+
+                </div>
+
+            </div>
+            <a href="https://github.com/MiracleKAI/student_score_manage" class="github"><img src="img/icon-github.png"
+                    alt="github" class="github-img"></a>
+        </div>
+        <div class="main">
+            <div class="wrap-left">
+                <!-- 用户介绍 -->
+                <h2>welcome</h2>
+                <div class="intro">
+                    <li>姓名：{{student.name}}</li>
+                    <li>学号：{{student.studentId}}</li>
+                    <li>班级：{{student.className}}</li>
+                    <li>学院：{{student.faculty}}</li>
+                    <li>性别：{{student.gender}}</li>
+                </div>
+            </div>
+            <div class="wrap-right">
+                <!-- 分数展示 -->
+                <div class="top">
+                    <div class="title">成绩/</div>
+                    <div class="search">
+                        <input type="text" placeholder="输入课程编号搜索成绩" v-model="courseId">
+                        <button class="btn" @click="getScore">搜索</button>
+                        <button class="btn" @click="getAllScores">获取全部成绩</button>
+                    </div>
+                </div>
+                <div class="scores">
+                    <table class="scores-table">
+                        <caption>如有疑问请联系教务处</caption>
+                        <thead>
+                            <tr>
+                                <th>课程编号</th>
+                                <th>课程名称</th>
+                                <th>课程分制</th>
+                                <th>代课老师</th>
+                                <th>最终成绩</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="item in scores">
+                                <th>#{{item.course.courseId}}</th>
+                                <td>{{item.course.courseName}}</td>
+                                <td>{{item.score.flag === 0?"百分制":(item.score.flag === 0?"五分制": "")}}</td>
+                                <td>{{item.teacher.name}}</td>
+                                <td>{{item.score.score}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="foot">
+        <div class="foot-left">@木月 2020.6.9</div>
+        <div class="foot-right"></div>
+    </div>
+
+    <script src="lib/axios.js"></script>
+    <script src="lib/vue.js"></script>
+    <script src="js/student.js?11sa1s1"></script>
+</body>
+
+</html>
