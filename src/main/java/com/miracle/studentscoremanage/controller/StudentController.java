@@ -6,10 +6,7 @@ import com.miracle.studentscoremanage.entity.Course;
 import com.miracle.studentscoremanage.entity.Score;
 import com.miracle.studentscoremanage.entity.Student;
 import com.miracle.studentscoremanage.entity.Teacher;
-import com.miracle.studentscoremanage.service.CourseService;
-import com.miracle.studentscoremanage.service.ScoreService;
-import com.miracle.studentscoremanage.service.StudentService;
-import com.miracle.studentscoremanage.service.TeacherService;
+import com.miracle.studentscoremanage.service.*;
 import com.miracle.studentscoremanage.util.Code;
 import com.miracle.studentscoremanage.util.UiReturn;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,14 +30,16 @@ public class StudentController {
     private TokenManager tokenManager;
     private CourseService courseService;
     private TeacherService teacherService;
+    private UserService userService;
 
     @Autowired
-    public StudentController(ScoreService scoreService, StudentService studentService, TokenManager tokenManager, CourseService courseService, TeacherService teacherService) {
+    public StudentController(ScoreService scoreService, StudentService studentService, TokenManager tokenManager, CourseService courseService, TeacherService teacherService, UserService userService) {
         this.scoreService = scoreService;
         this.studentService = studentService;
         this.tokenManager = tokenManager;
         this.courseService = courseService;
         this.teacherService = teacherService;
+        this.userService = userService;
     }
 
     @GetMapping("/scores")
@@ -54,8 +53,10 @@ public class StudentController {
         if (!tokenManager.checkToken(model)) {
             return UiReturn.notOk("用户已注销", map);
         }
-        Long id = Long.valueOf(authentication.split("_")[0]);
-        List<Score> scores = scoreService.getScoresStudent(id, course, start, everyCount);
+        Long id = model.getUserId();
+        String name = userService.getNameById(id);
+        Student student = studentService.getStudent(name);
+        List<Score> scores = scoreService.getScoresStudent(student.getId(), course, start, everyCount);
         if (scores == null && !"".equals(course)){
             return UiReturn.notOk("无此课");
         }
@@ -72,7 +73,6 @@ public class StudentController {
             Teacher teacher1 = null;
             if (teacher.isPresent()){
                 teacher1 = teacher.get();
-                teacher1.setPassword("");
             }
             map1.put("teacher", teacher1);
             results.add(map1);
@@ -90,17 +90,13 @@ public class StudentController {
         Map<String, Student> map = new HashMap<>(10);
         map.put("user", null);
         if (!tokenManager.checkToken(model)) {
+
             return UiReturn.notOk("用户已注销", map);
         }
-        Long id = Long.valueOf(authentication.split("_")[0]);
-        Optional<Student> student = studentService.getInfo(id);
-        if(student.isPresent()){
-            Student student1 = student.get();
-            student1.setPassword("");
-            map.put("user", student1);
-        }else {
-            map.put("user", null);
-        }
+        Long id = model.getUserId();
+        String name = userService.getNameById(id);
+        Student student = studentService.getStudent(name);
+        map.put("user", student);
         response.setStatus(Code.HTTP_OK);
         return UiReturn.ok(map);
     }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>学生分数查询系统</title>
     <link rel="stylesheet" href="font/font.css">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/main.css">
@@ -14,7 +14,7 @@
 <body style="height: 100%;background: #f1f1f1;">
     <div id="student">
 
-
+        <!-- 顶部nav -->
         <div class="nav">
             <div class="nav-wrap">
                 <div class="nav-left">学生成绩录入/查询系统</div>
@@ -28,9 +28,10 @@
             <a href="https://github.com/MiracleKAI/student_score_manage" class="github"><img src="img/icon-github.png"
                     alt="github" class="github-img"></a>
         </div>
+        <!-- 主体 -->
         <div class="main">
             <div class="wrap-left">
-                <!-- 用户介绍 -->
+                <!-- 用户信息 -->
                 <h2>welcome</h2>
                 <div class="intro">
                     <li>姓名：{{student.name}}</li>
@@ -60,15 +61,17 @@
                                 <th>课程分制</th>
                                 <th>代课老师</th>
                                 <th>最终成绩</th>
+                                <th>学分</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="item in scores">
                                 <th>#{{item.course.courseId}}</th>
                                 <td>{{item.course.courseName}}</td>
-                                <td>{{item.score.flag === 0?"百分制":(item.score.flag === 0?"五分制": "")}}</td>
+                                <td>{{item.score.flag === 0?"百分制":(item.score.flag === 1?"五分制": "")}}</td>
                                 <td>{{item.teacher.name}}</td>
                                 <td>{{item.score.score}}</td>
+                                <td>{{item.score.flag === 0?((item.score.score - 50) / 10).toFixed(2):(item.score.flag === 1?item.score.score: "")}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -78,7 +81,7 @@
     </div>
     <div class="foot">
         <div class="foot-left">@木月 2020.6.9</div>
-        <div class="foot-right"></div>
+        <div class="foot-right">a little worm in the tree</div>
     </div>
 
     <script src="lib/axios.js"></script>

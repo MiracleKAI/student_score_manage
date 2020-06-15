@@ -6,6 +6,7 @@ import com.miracle.studentscoremanage.entity.*;
 import com.miracle.studentscoremanage.service.ScoreService;
 import com.miracle.studentscoremanage.service.StudentService;
 import com.miracle.studentscoremanage.service.TeacherService;
+import com.miracle.studentscoremanage.service.UserService;
 import com.miracle.studentscoremanage.util.Code;
 import com.miracle.studentscoremanage.util.UiReturn;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @RestController
@@ -25,13 +25,15 @@ public class TeacherController {
     private ScoreService scoreService;
     private TokenManager tokenManager;
     private StudentService studentService;
+    private UserService userService;
 
     @Autowired
-    public TeacherController(TeacherService teacherService, ScoreService scoreService, TokenManager tokenManager, StudentService studentService) {
+    public TeacherController(TeacherService teacherService, ScoreService scoreService, TokenManager tokenManager, StudentService studentService, UserService userService) {
         this.teacherService = teacherService;
         this.scoreService = scoreService;
         this.tokenManager = tokenManager;
         this.studentService = studentService;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -45,21 +47,16 @@ public class TeacherController {
         if (!tokenManager.checkToken(model)) {
             return UiReturn.notOk("用户已注销", map);
         }
-        Long id = Long.valueOf(authentication.split("_")[0]);
-        Optional<Teacher> teacher = teacherService.get(id);
-        if(teacher.isPresent()){
-            Teacher teacher1 = teacher.get();
-            teacher1.setPassword("");
-            map.put("user", teacher1);
-        }else {
-            map.put("user", null);
-        }
+        Long id = model.getUserId();
+        String userName = userService.getNameById(id);
+        Teacher teacher = teacherService.getTeacher(userName);
+        map.put("user", teacher);
         response.setStatus(Code.HTTP_OK);
         return UiReturn.ok(map);
     }
 
     @GetMapping("/scores")
-    public UiReturn getScores(HttpServletRequest request, @RequestParam("class") String type, @RequestParam("course")String index, @RequestParam(value = "start", defaultValue = "1") Integer start, @RequestParam(value = "pageSize", defaultValue = "10") Integer everyCount, HttpServletResponse response){
+    public UiReturn getScores(HttpServletRequest request, @RequestParam("class") String clazz, @RequestParam("course")String index, @RequestParam(value = "start", defaultValue = "1") Integer start, @RequestParam(value = "pageSize", defaultValue = "10") Integer everyCount, HttpServletResponse response){
         String authentication = request.getHeader("authentication");
         TokenModel model = tokenManager.getToken(authentication);
         response.setStatus(Code.HTTP_BAD_REQUEST);
@@ -68,7 +65,7 @@ public class TeacherController {
         if (!tokenManager.checkToken(model)) {
             return UiReturn.notOk("用户已注销", map);
         }
-        List<Score> scores = scoreService.getScores(type, index, start, everyCount);
+        List<Score> scores = scoreService.getScores(clazz, index, start, everyCount);
 
         if (scores == null){
             return UiReturn.notOk("无数据", map);
@@ -81,7 +78,6 @@ public class TeacherController {
             Student student1 = null;
             if (student.isPresent()){
                 student1 = student.get();
-                student1.setPassword("");
             }
             map1.put("student", student1);
             list.add(map1);
@@ -147,8 +143,10 @@ public class TeacherController {
         if (!tokenManager.checkToken(model)) {
             return UiReturn.notOk("用户已注销", map);
         }
-        Long id = Long.valueOf(authentication.split("_")[0]);
-        List<Classroom> classrooms = teacherService.getClasses(id);
+        Long id = model.getUserId();
+        String userName = userService.getNameById(id);
+        Teacher teacher = teacherService.getTeacher(userName);
+        List<Classroom> classrooms = teacherService.getClasses(teacher.getId());
         response.setStatus(Code.HTTP_OK);
         map.put("classes", classrooms);
         return UiReturn.ok(map);
@@ -164,8 +162,10 @@ public class TeacherController {
         if (!tokenManager.checkToken(model)) {
             return UiReturn.notOk("用户已注销", map);
         }
-        Long id = Long.valueOf(authentication.split("_")[0]);
-        List<Course> courses = teacherService.getCourses(id);
+        Long id = model.getUserId();
+        String userName = userService.getNameById(id);
+        Teacher teacher = teacherService.getTeacher(userName);
+        List<Course> courses = teacherService.getCourses(teacher.getId());
         response.setStatus(Code.HTTP_OK);
         map.put("courses", courses);
         return UiReturn.ok(map);

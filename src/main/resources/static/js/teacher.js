@@ -9,16 +9,16 @@ let vu = new Vue({
     el: "#teacher",
     data: {
         teacher: {
-            name: "李明",
-            tid: "B111111",
-            faculty: "匹兹堡",
-            gender: "nan"
+            name: "",
+            tid: "",
+            faculty: "",
+            gender: ""
         },
         page: 1,
         flag: 0,
         npro: 30,
         fpro: 70,
-        course: "线性代数",
+        course: "",
         courseId: "",
         className: "全部班级",
         courseName: "",
@@ -71,7 +71,7 @@ let vu = new Vue({
             console.log(this.flag)
             let index = 0
             for (item in this.scores) {
-                console.log("wuwuwu"+index);
+                console.log("wuwuwu" + index);
                 this.scores[index].score.score = (this.scores[index].score.normalScore * this.npro + this.scores[index].score.finalScore * this.fpro) / 100
                 if (this.flag == 1) {
                     this.scores[index].score.score = ((this.scores[index].score.score - 50) / 10).toFixed(2)
@@ -104,7 +104,7 @@ let vu = new Vue({
                         //     alert("无此结果")
                         // else
                         that.scores.splice(index, 1)
-
+                        alert("删除成功")
                     })
                     .catch(error => {
                         console.log(error);
@@ -112,7 +112,7 @@ let vu = new Vue({
                     });
             }
         },
-        
+
         getInfo: function () {
             let that = this;
             let au = document.cookie.split("=")[1]
@@ -150,7 +150,7 @@ let vu = new Vue({
             for (item of that.scores) {
                 item.score.flag = that.flag
                 list.push(item.score)
-            }           
+            }
             var myHeaders = new Headers();
             myHeaders.append("authentication", au);
             myHeaders.append("Content-Type", "application/json");
@@ -165,9 +165,15 @@ let vu = new Vue({
             };
 
             fetch("http://182.92.224.68:8080/v1/teacher/scores", requestOptions)
-                .then(response => response.text())
+                .then(response => {
+                    response.text()
+                    alert("提交成功！")
+                })
                 .then(result => console.log(result))
-                .catch(error => console.log('error', error));
+                .catch(error => {
+                    console.log('error', error)
+                    alert("错误，请重试！")
+                });
         }
     },
     mounted: function () {

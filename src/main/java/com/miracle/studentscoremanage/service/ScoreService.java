@@ -52,6 +52,5 @@ public class ScoreService {
         }
         return Collections.singletonList(scoreRepository.findByCourseIdAndStudentId(course.getId(), studentId));
     }
-    
 
 }

@@ -16,8 +16,6 @@ public class Teacher {
 
     private String name;
 
-    private String password;
-
     private String other;
 
     private String faculty;
@@ -64,13 +62,6 @@ public class Teacher {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getOther() {
         return other;

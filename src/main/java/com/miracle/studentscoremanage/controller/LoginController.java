@@ -7,6 +7,7 @@ import com.miracle.studentscoremanage.entity.Teacher;
 import com.miracle.studentscoremanage.entity.User;
 import com.miracle.studentscoremanage.service.StudentService;
 import com.miracle.studentscoremanage.service.TeacherService;
+import com.miracle.studentscoremanage.service.UserService;
 import com.miracle.studentscoremanage.util.Code;
 import com.miracle.studentscoremanage.util.UiReturn;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +24,13 @@ import java.util.Map;
 @RequestMapping({"/v1"})
 public class LoginController {
 
-    private TeacherService teacherService;
-    private StudentService studentService;
     private TokenManager tokenManager;
-
+    private UserService userService;
 
     @Autowired
-    public LoginController(TeacherService teacherService, StudentService studentService, TokenManager tokenManager) {
-        this.teacherService = teacherService;
-        this.studentService = studentService;
+    public LoginController(TokenManager tokenManager, UserService userService) {
         this.tokenManager = tokenManager;
+        this.userService = userService;
     }
 
     @RequestMapping(value = {"/authorizations"}, method = {RequestMethod.POST})
@@ -40,36 +38,23 @@ public class LoginController {
         Map<String, String> map = new HashMap<>(1);
         map.put("authentication", null);
         response.setStatus(Code.HTTP_BAD_REQUEST);
-        long id = -1;
         if ("".equals(instance.getName()) || "".equals(instance.getPassword())) {
             return UiReturn.notOk("用户名或密码为空", map);
         }
-
-        if (instance.getRole() == 1){
-            Teacher teacher = teacherService.getTeacher(instance.getName());
-            if (teacher == null){
-                return UiReturn.notOk("无此用户", map);
-            }
-            if (!teacher.getPassword().equals(instance.getPassword())) {
-                return UiReturn.notOk("密码错误", map);
-            }
-            id = teacher.getId();
-        }else {
-            Student student = studentService.getStudent(instance.getName());
-            if (student == null){
-                return UiReturn.notOk("无此用户", map);
-            }
-            if (!student.getPassword().equals(instance.getPassword())) {
-                return UiReturn.notOk("密码错误", map);
-            }
-            id = student.getId();
+        User user = userService.get(instance.getName());
+        if(user == null){
+            return UiReturn.notOk("无此用户", map);
         }
-        TokenModel model = this.tokenManager.createToken(id);
+        if(!user.getPassword().equals(instance.getName())){
+            return UiReturn.notOk("密码错误", map);
+        }
+        if(user.getRole() != instance.getRole()){
+            return UiReturn.notOk("用户角色错误", map);
+        }
+        TokenModel model = this.tokenManager.createToken(user.getId());
         String token = model.getUserId() + "_" + model.getToken();
         map.put("authentication", token);
         response.setStatus(Code.HTTP_CREATED);
         return UiReturn.ok(map);
     }
-
-
 }
