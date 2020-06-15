@@ -4,6 +4,7 @@
  */
 
 
+
 let qs = Qs
 let vu = new Vue({
     el: "#teacher",
@@ -27,9 +28,25 @@ let vu = new Vue({
         scores: [],
         isShown1: false,
         isShown2: false,
-        isFound: false
+        isFound: false,
+        ip: "182.92.224.68:8000"
     },
     methods: {
+        getAu : function(cookies, userId){
+            for (let i = 0; i < cookies.length; i++){
+                let co = cookies[i].split("=");
+                console.log(co);
+                if(co[0].trim() === userId){
+                    au = co[1];
+                }
+            }
+            return au
+        },
+        getParamValue : function(url,key){
+            var regex = new RegExp(key+"=([^&]*)","i");
+            return url.match(regex)[1];
+
+        },
         toggle1: function (e) {
             this.isShown1 = !this.isShown1;
         },
@@ -83,12 +100,16 @@ let vu = new Vue({
         },
         deleteById(index) {
             let that = this;
-            let au = document.cookie.split("=")[1]
+            let au = "";
+            let cookies = document.cookie.split(";");
+            let userId = this.getParamValue(window.location.href, "key");
+            au = that.getAu(cookies, userId);
+            console.log(au);
             let con = confirm("确认删除该条成绩？")
             if (con) {
 
                 axios
-                    .delete('http://182.92.224.68:8080/v1/teacher/scores?cid=' + that.scores[index].score.id, {
+                    .delete('http://'+ that.ip +'/v1/teacher/scores?cid=' + that.scores[index].score.id, {
                         headers: {
                             authentication: au
                         }
@@ -115,10 +136,14 @@ let vu = new Vue({
 
         getInfo: function () {
             let that = this;
-            let au = document.cookie.split("=")[1]
+            let au = "";
+            let cookies = document.cookie.split(";");
+            let userId = this.getParamValue(window.location.href, "key");
+            au = that.getAu(cookies, userId);
+            console.log(au);
             let classN = (that.className === "全部班级" ? "" : that.className)
             axios
-                .get('http://182.92.224.68:8080/v1/teacher/scores?course=' + that.courseId + "&class=" + classN + "&start=" + that.page + "&pagesize=20", {
+                .get('http://'+ that.ip +'/v1/teacher/scores?course=' + that.courseId + "&class=" + classN + "&start=" + that.page + "&pagesize=20", {
                     headers: {
                         authentication: au
                     }
@@ -144,7 +169,11 @@ let vu = new Vue({
         },
         setScores() {
             let that = this;
-            let au = document.cookie.split("=")[1]
+            let au = "";
+            let cookies = document.cookie.split(";");
+            let userId = this.getParamValue(window.location.href, "key");
+            au = that.getAu(cookies, userId);
+            console.log(au);
             let list = []
             // let qs = Qs;
             for (item of that.scores) {
@@ -164,7 +193,7 @@ let vu = new Vue({
                 redirect: 'follow'
             };
 
-            fetch("http://182.92.224.68:8080/v1/teacher/scores", requestOptions)
+            fetch("http://" + that.ip + "/v1/teacher/scores", requestOptions)
                 .then(response => {
                     response.text()
                     alert("提交成功！")
@@ -178,9 +207,13 @@ let vu = new Vue({
     },
     mounted: function () {
         let that = this;
-        let au = document.cookie.split("=")[1]
+        let au = "";
+        let cookies = document.cookie.split(";");
+        let userId = this.getParamValue(window.location.href, "key");
+        au = that.getAu(cookies, userId);
+        console.log(au);
         axios
-            .get('http://182.92.224.68:8080/v1/teacher', {
+            .get('http://' + that.ip +'/v1/teacher', {
                 headers: {
                     authentication: au
                 }
@@ -196,7 +229,7 @@ let vu = new Vue({
                 window.location.href = "login.html"
             });
         axios
-            .get('http://182.92.224.68:8080/v1/teacher/course', {
+            .get('http://' + that.ip +'/v1/teacher/course', {
                 headers: {
                     authentication: au
                 }
@@ -213,7 +246,7 @@ let vu = new Vue({
 
             });
         axios
-            .get('http://182.92.224.68:8080/v1/teacher/class', {
+            .get('http://' + that.ip + '/v1/teacher/class', {
                 headers: {
                     authentication: au
                 }

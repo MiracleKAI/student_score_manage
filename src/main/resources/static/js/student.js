@@ -2,19 +2,28 @@
  * @ muyue
  * @ date: 2020.6.10
  */
+
+
+
 let v = new Vue({
     el: "#student",
     data: {
         student: {},
         page: 1,
         scores: [],
-        courseId: ""
+        courseId: "",
+        ip: "182.92.224.68:8000"
     },
+
     mounted: function () {
         let that = this;
-        let au = document.cookie.split("=")[1]
+        let au = "";
+        var cookies = document.cookie.split(";");
+        let userId = that.getParamValue(window.location.href, "key");
+        au = that.getAu(cookies, userId);
+        console.log(au);
         axios
-            .get('http://182.92.224.68:8080/v1/student', {
+            .get('http://' + that.ip +'/v1/student', {
                 headers: {
                     authentication: au
                 }
@@ -31,11 +40,30 @@ let v = new Vue({
             });
     },
     methods: {
+        getAu : function(cookies, userId){
+            for (let i = 0; i < cookies.length; i++){
+                let co = cookies[i].split("=");
+                console.log(co);
+                if(co[0].trim() === userId){
+                    au = co[1];
+                }
+            }
+            return au
+        },
+        getParamValue : function(url,key){
+            var regex = new RegExp(key+"=([^&]*)","i");
+            return url.match(regex)[1];
+
+        },
         getAllScores: function () {
             let that = this;
-            let au = document.cookie.split("=")[1]
+            let au = "";
+            var cookies = document.cookie.split(";");
+            let userId = that.getParamValue(window.location.href, "key");
+            au = that.getAu(cookies, userId);
+            console.log(au);
             axios
-                .get('http://182.92.224.68:8080/v1/student/scores?course=' + "&start=" + that.page + "&pagesize=10", {
+                .get('http://'+ that.ip +'/v1/student/scores?course=' + "&start=" + that.page + "&pagesize=10", {
                     headers: {
                         authentication: au
                     }
@@ -57,12 +85,15 @@ let v = new Vue({
         },
         getScore: function () {
             let that = this;
-            let au = document.cookie.split("=")[1]
+            let au = "";
+            let cookies = document.cookie.split(";");
+            let userId = this.getParamValue(window.location.href, "key");
+            au = that.getAu(cookies, userId);
             if (that.courseId === "") {
                 alert("课程编号不可为空！")
             } else {
                 axios
-                    .get('http://182.92.224.68:8080/v1/student/scores?course=' + that.courseId + "&start=" + that.page + "&pagesize=10", {
+                    .get('http://' + that.ip + '/v1/student/scores?course=' + that.courseId + "&start=" + that.page + "&pagesize=10", {
                         headers: {
                             authentication: au
                         }

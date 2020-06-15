@@ -31,7 +31,7 @@ let vm = new Vue({
                 this.uIdisEmpty = false;
                 this.pwdisEmpty = false;
                 axios
-                    .post('http://182.92.224.68:8080/v1/authorizations', {
+                    .post('http://182.92.224.68:8000/v1/authorizations', {
                         name: that.userId,//"B17070420",//
                         password: that.pwd,//"12345678",//
                         role: that.role
@@ -45,12 +45,12 @@ let vm = new Vue({
                             let d = new Date();
                             d.setTime(d.getTime() + (24 * 60 * 60 * 1000));
                             let expires = "expires=" + d.toGMTString();
-                            document.cookie = "token=" + response.data.data.authentication + "; " + expires;
+                            document.cookie = that.userId +  "=" + response.data.data.authentication + "; " + expires;
                             if (that.role === 0) {
-                                window.location.href = "student.html";
+                                window.location.href = "student.html?key=" + that.userId;
                             }
                             else {
-                                window.location.href = "teacher.html"
+                                window.location.href = "teacher.html?key=" + that.userId;
                             }
                         }
 

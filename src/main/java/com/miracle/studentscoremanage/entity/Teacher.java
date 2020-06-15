@@ -62,7 +62,6 @@ public class Teacher {
         this.name = name;
     }
 
-
     public String getOther() {
         return other;
     }

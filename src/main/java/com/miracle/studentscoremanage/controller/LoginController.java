@@ -45,7 +45,7 @@ public class LoginController {
         if(user == null){
             return UiReturn.notOk("无此用户", map);
         }
-        if(!user.getPassword().equals(instance.getName())){
+        if(!user.getPassword().equals(instance.getPassword())){
             return UiReturn.notOk("密码错误", map);
         }
         if(user.getRole() != instance.getRole()){
