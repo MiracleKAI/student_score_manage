@@ -9,6 +9,7 @@ import com.miracle.studentscoremanage.service.StudentService;
 import com.miracle.studentscoremanage.service.TeacherService;
 import com.miracle.studentscoremanage.service.UserService;
 import com.miracle.studentscoremanage.util.Code;
+import com.miracle.studentscoremanage.util.CodeUtil;
 import com.miracle.studentscoremanage.util.UiReturn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,12 +36,15 @@ public class LoginController {
     }
 
     @RequestMapping(value = {"/authorizations"}, method = {RequestMethod.POST})
-    public UiReturn login(@RequestBody User instance, HttpServletResponse response){
+    public UiReturn login(@RequestBody User instance, HttpServletRequest request, HttpServletResponse response){
         Map<String, String> map = new HashMap<>(1);
         map.put("authentication", null);
         response.setStatus(Code.HTTP_BAD_REQUEST);
         if ("".equals(instance.getName()) || "".equals(instance.getPassword())) {
             return UiReturn.notOk("用户名或密码为空", map);
+        }
+        if (!CodeUtil.checkVerifyCode(request)) {
+            return UiReturn.notOk("验证码错误", map);
         }
         User user = userService.get(instance.getName());
         if(user == null){

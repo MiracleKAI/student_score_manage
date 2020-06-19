@@ -31,7 +31,7 @@ let vm = new Vue({
                 this.uIdisEmpty = false;
                 this.pwdisEmpty = false;
                 axios
-                    .post('http://182.92.224.68:8000/v1/authorizations', {
+                    .post('http://localhost:8080/v1/authorizations', {
                         name: that.userId,//"B17070420",//
                         password: that.pwd,//"12345678",//
                         role: that.role

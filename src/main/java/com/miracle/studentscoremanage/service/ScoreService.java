@@ -24,6 +24,14 @@ public class ScoreService {
         this.courseRepository = courseRepository;
     }
 
+    /**
+     *
+     * @param type  班级名
+     * @param index 课程编号
+     * @param start
+     * @param everyCount
+     * @return
+     */
     public List<Score> getScores(String type, String index, Integer start, Integer everyCount){
         List<Score> scores = null;
         if("".equals(type)){
@@ -42,6 +50,14 @@ public class ScoreService {
         return scores;
     }
 
+    /**
+     *
+     * @param studentId  学生id
+     * @param courseId   课程编号
+     * @param start
+     * @param everyCount
+     * @return
+     */
     public List<Score> getScoresStudent(Long studentId, String courseId, Integer start, Integer everyCount){
         if("".equals(courseId)){
             return scoreRepository.findAllByStudentId(studentId, start, everyCount);

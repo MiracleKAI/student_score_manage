@@ -11,7 +11,11 @@
     <link rel="stylesheet" href="css/main.css">
 
 </head>
-
+<script type="text/javascript">
+    function refresh() {
+        document.getElementById('captcha_img').src="http://localhost:8080/v1/kaptcha?" + Math.random();
+    }
+</script>
 <body style="height: 100%;background: #f1f1f1;">
 
     <div class="login-main" id="login">
@@ -29,11 +33,17 @@
                     <input type="password" id="pwd" placeholder="请输入密码" v-model="pwd">
                     <div class="error" v-if="pwdisEmpty">密码不能为空！</div>
                 </div>
+                <div class="input-group">
+                    <input style="width:42%" display=inline-block type="text" placeholder="请输入验证码" name="verifyCodeActual">
+                    <img id="captcha_img" alt="点击更换" title="点击更换"
+                         onclick="refresh()" src="http://localhost:8080/v1/kaptcha" />
+                </div>
                 <div class="identification"><span>作为</span>
                     <input type="radio" name="role" value="0" v-model="role"> 学生
                     <input type="radio" name="role" value="1" v-model="role"> 老师
                     <span style="margin-left: 20px;">登录</span>
                 </div>
+
                 <div class="tip">登录遇到问题？</div>
                 <div class="error" id="loginError" v-if="error" style="width: 120px; margin: 0 60px;">登录错误，请重试！</div>
                 <button class="btn" @click="login">

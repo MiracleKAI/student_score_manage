@@ -29,7 +29,7 @@ let vu = new Vue({
         isShown1: false,
         isShown2: false,
         isFound: false,
-        ip: "182.92.224.68:8000"
+        ip: "localhost:8080"
     },
     methods: {
         getAu : function(cookies, userId){
@@ -161,7 +161,9 @@ let vu = new Vue({
                     that.scores = response.data.data.scores
                     that.isFound = true
                     that.courseName = that.course
-                })
+                    if(response.data.data.scores[0].score.flag != null)
+                          that.flag = response.data.data.scores[0].score.flag
+                 })
                 .catch(error => {
                     console.log(error);
                     alert("网络错误，请重试!")

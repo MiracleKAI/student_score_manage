@@ -16,11 +16,13 @@ public interface ScoreRepository extends JpaRepository<Score, Long> {
 
     @Query(value = "SELECT * FROM course_student g WHERE g.course_id = :course_id LIMIT :start, :everyCount", nativeQuery = true)
     List<Score> findAllByCourseId(@Param("course_id") Long courseId, @Param("start") Integer start, @Param("everyCount") Integer evertCount);
+
     @Query(value = "SELECT * FROM course_student g WHERE g.student_id = :student_id LIMIT :start, :everyCount", nativeQuery = true)
     List<Score> findAllByStudentId(@Param("student_id") Long studentId, @Param("start") Integer start, @Param("everyCount") Integer evertCount);
+
     @Query(value = "SELECT * FROM course_student g WHERE g.class_name = :class_name AND g.course_id = :course_id LIMIT :start, :everyCount", nativeQuery = true)
     List<Score> findAllByClassNameAndCourseId(@Param("class_name") String className, @Param("course_id") Long courseId, @Param("start") Integer start, @Param("everyCount") Integer evertCount);
 
     Score findByCourseIdAndStudentId(Long courseId, Long studentId);
-     
+
 }

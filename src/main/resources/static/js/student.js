@@ -12,7 +12,7 @@ let v = new Vue({
         page: 1,
         scores: [],
         courseId: "",
-        ip: "182.92.224.68:8000"
+        ip: "localhost:8080"
     },
 
     mounted: function () {
@@ -40,6 +40,17 @@ let v = new Vue({
             });
     },
     methods: {
+        getGPA:function(flag, score) {
+            if(flag === 0) {
+                let s = ((score - 50) / 10).toFixed(2)
+                if(s < 0)
+                    s = 0
+                return s
+            } else if (flag === 0)
+                return score
+            return ""
+        },
+
         getAu : function(cookies, userId){
             for (let i = 0; i < cookies.length; i++){
                 let co = cookies[i].split("=");

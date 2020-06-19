@@ -61,7 +61,7 @@
                                 <th>课程分制</th>
                                 <th>代课老师</th>
                                 <th>最终成绩</th>
-                                <th>学分</th>
+                                <th>绩点</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -71,7 +71,7 @@
                                 <td>{{item.score.flag === 0?"百分制":(item.score.flag === 1?"五分制": "")}}</td>
                                 <td>{{item.teacher.name}}</td>
                                 <td>{{item.score.score}}</td>
-                                <td>{{item.score.flag === 0?((item.score.score - 50) / 10).toFixed(2):(item.score.flag === 1?item.score.score: "")}}</td>
+                                <td>{{getGPA(item.score.flag, item.score.score)}}</td>
                             </tr>
                         </tbody>
                     </table>
